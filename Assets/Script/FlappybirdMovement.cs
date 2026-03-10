@@ -27,4 +27,10 @@ public class FlappybirdMovement : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(0, 0, rb.linearVelocity.y * _rotationSpeed);
     }
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        GameManager.instance.GameOver();
+    }
 }
