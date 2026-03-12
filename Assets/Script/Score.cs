@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 
 public class Score : MonoBehaviour
 {
@@ -19,7 +23,29 @@ public class Score : MonoBehaviour
         {
             instance = this;
         }
+
+        // ✅ Hanya jalan di Unity Editor, tidak di build game
+        #if UNITY_EDITOR
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        #endif
     }
+
+    // ✅ Method ini hanya ada saat di Unity Editor
+    #if UNITY_EDITOR
+    private void OnPlayModeStateChanged(PlayModeStateChange state)
+    {
+        // Dipanggil tepat sebelum Editor berhenti
+        if(state == PlayModeStateChange.ExitingPlayMode)
+        {
+            PlayerPrefs.SetInt("HighScore", 0);
+            PlayerPrefs.Save();
+            Debug.Log("HighScore di-reset karena keluar dari Play Mode");
+
+            // Unsubscribe agar tidak memory leak
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        }
+    }
+    #endif
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()

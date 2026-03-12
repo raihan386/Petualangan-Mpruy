@@ -17,7 +17,7 @@ public class FlappybirdMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             rb.linearVelocity = Vector2.up * _velocity;
         }
