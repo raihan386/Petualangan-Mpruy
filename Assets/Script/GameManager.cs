@@ -6,6 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] private GameObject _gameOverCanvas;
+    [SerializeField] private GameObject _congratsCanvas;
+
+    private bool _gameEnded = false; // ✅ Cegah double trigger
+
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,17 +35,41 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+
+        if (_gameEnded) return;
+        _gameEnded = true;
         _gameOverCanvas.SetActive(true);
         Time.timeScale = 0f;
     }
 
+    public void Congrats()
+    {
+        // ✅ Tidak set _gameEnded = true, biar game bisa lanjut setelah continue
+        _congratsCanvas.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ContinueGame() // ✅ Method baru untuk tombol Continue
+    {
+        _congratsCanvas.SetActive(false);
+        Time.timeScale = 1f;
+    }
+    
+    public bool IsGameEnded() // ✅ Untuk cek di FlappyBirdMovement
+    {
+        return _gameEnded;
+    }
+
     public void RestartGame()
     {
+        _gameEnded = false;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToLobby()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 }

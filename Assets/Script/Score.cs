@@ -15,6 +15,8 @@ public class Score : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _currentScoreText;
     [SerializeField] private TextMeshProUGUI _highScoreText;
     private int _score;
+    private bool _starCoinRewarded = false;
+    private const int SCORE_TO_EARN_COIN = 10;
 
 
     private void Awake()
@@ -50,7 +52,9 @@ public class Score : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        _currentScoreText.text = _score.ToString() + " / 20";
+        _score = 0;
+        _starCoinRewarded = false;
+        _currentScoreText.text = _score.ToString() + " / 10";
 
         _highScoreText.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
         UpdateHighScore();
@@ -69,8 +73,15 @@ public class Score : MonoBehaviour
     public void UpdateScore()
     {
         _score++;
-        _currentScoreText.text = _score.ToString() + " / 20";
+        _currentScoreText.text = _score.ToString() + " / 10";
         UpdateHighScore();
+
+        if(_score >= SCORE_TO_EARN_COIN && !_starCoinRewarded)
+        {
+            _starCoinRewarded = true;
+            StarCoinManager.instance.GiveStarCoin(1);
+            GameManager.instance.Congrats(); // ✅ Tambah ini
+        }
     }
 
     // Update is called once per frame
