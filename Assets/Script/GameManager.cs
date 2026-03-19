@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     public void Congrats()
     {
+        StarCoinManager.instance.GiveStarCoin(1); // ✅ Kasih StarCoin
+
         // ✅ Tidak set _gameEnded = true, biar game bisa lanjut setelah continue
         _congratsCanvas.SetActive(true);
         Time.timeScale = 0f;

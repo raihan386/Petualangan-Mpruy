@@ -32,5 +32,10 @@ public class HororPlayerMovement : MonoBehaviour
         {
             GameManager.instance.GameOver();
         }
+
+        if(collision.gameObject.tag == "FinishPoint")
+        {
+            GameManager.instance.Congrats();
+        }
     }
 }

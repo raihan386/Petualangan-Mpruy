@@ -36,4 +36,6 @@ public class FlappybirdMovement : MonoBehaviour
     {
         GameManager.instance.GameOver();
     }
+
+    
 }
