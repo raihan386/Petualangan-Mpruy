@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FlappyBird.unity
     guid: 2a2fe3290d130e34c889b714dad18250
+  - enabled: 1
+    path: Assets/Scenes/HororGames.unity
+    guid: 422f3ca2b6fb77c48bcf68869b2d2283
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
